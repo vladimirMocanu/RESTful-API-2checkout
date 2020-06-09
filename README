@@ -46,3 +46,6 @@ in baza de date.
 
     Pentru a rula programul avem nevoie de node.js si toate modulele aferente. O sa
 pornim programul cu comanda : npm start
+    Oricine poate avea access la baza de date(am pus o ruta default(0.0.0.0/0)).
+    Pentru testare am folosit Postman. Toate functionalitatile proiectul sunt
+implementate si sunt functionale.
