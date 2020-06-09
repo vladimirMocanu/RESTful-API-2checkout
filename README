@@ -1,0 +1,48 @@
+Mocanu-Prejma Vladimir-Gergian
+
+                    Back-end Internship 2Checkout
+
+Implementare Restful Api pentru un catalog de produse. Un produse
+are urmatoarele campuri:  Id, Name, Price, Category, CreatedDate, UpdatedDate
+    Pentru implementare am folosit Node.js, mongoose(https://cloud.mongodb.com/), body-parser,
+express-rate-limit, bcrypt, jsonWebToken.
+Pentru implemntarea bazei de date am folosit mongoose(am folosit link-ul de mai sus
+pentru a retine datele). In baza de date avem 3 colectii(tabele): users, products,
+refreshtoken. In users retinem utilizatorii (putem sa ne inregistram, sa ne logam sau 
+sa iesim din cont(logout)), in products
+retinem toate produsele noastre(putem adauga, sterge, actualiza anumite produse
+, sa vedem anumite produse sau pe toate) si in refreshtoken retinem refreshtoken-ul
+pentru autentificare.
+
+    Pentru produse avem urmatoarele rute:
+* GET /product => returneaza toate produsele
+* GET /product/productId => returneaza un produs anumite
+* Post /product => adauga un nou produs
+* Delete /product/productId => sterge un anumit produs din baza de date
+* Patch /product/productId => acualizam un anumit produs din body
+* Pentru a accesa rutele trebuie sa avem un token valid
+
+    Pentru utilizatori avem urmatoarele rute:
+* GET /user => returneaza toti utilizatorii, trebuie sa avem un token valid
+* Post /user/register => inregistreaza un nou utilizatori
+* Post /user/login => autentificare ca utilizatorul respectiv, primeste un accessToken
+si un refreshToken. Pentru securitate accessToken are un timp limitat de viata(10m)
+* Post /user/token => obtine un nou accessToken folosind refreshToken
+* Delete /user/logout => iesim din "cont", si stergem refreshToken din baza de date
+
+    Pentru securitate am folosit JWT. Cand ne autentificam primim un accessToken si
+un refreshToken. Dupa 10 minute accessToken o sa expire astfel, nu o sa mai avem access
+la anumite rute. Trebuie sa cerem un nou accessToken folosind refreshToken. Tot pentru
+securitate avem optiune sa ne delogam si astfel se sterge refreshToken din baza de date
+ca sa nu poate fi folosit de altcineva atunci cand nu suntem autentificati. Cand ne inregistram
+cu un user nou, parola o sa fie cryptata pentru o securitate mai mare. Pentru autentificare
+trebuie sa introduce datele corect. Spre exemplu "Email: test1" nu o sa fie valid pentru ca nu
+este o adresa buna de email. Acelasi lucru este valabil si pentru inregistrare. O sa se verifice
+si in baza de data daca exista utilizatorul respectiv. Acelasi lucru este valabil si pentru inregistrare.
+Avem si o limita de request-uri => 100 de request-uri per minut. Daca depasim acesta valoare nu o
+o sa mai avem access la API.
+    In folderul models sunt definite schema pentru produs, user si token. Adica cum o sa fie stocate
+in baza de date.
+
+    Pentru a rula programul avem nevoie de node.js si toate modulele aferente. O sa
+pornim programul cu comanda : npm start
